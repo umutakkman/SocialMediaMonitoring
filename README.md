@@ -70,7 +70,7 @@ dotnet run
 
 The application includes Docker support for easy deployment:
 
-Don't forget to change [AnalysisController.cs](SocialMediaMonitoring/AnalysisController.cs) and [appsettings.json](SocialMediaMonitoring/appsettings.json) as mentioned in comments.
+Don't forget to change [AnalysisController.cs](SocialMediaMonitoring/Controllers/AnalysisController.cs) and [appsettings.json](SocialMediaMonitoring/appsettings.json) as mentioned in comments.
 
 ```bash
 docker-compose up
