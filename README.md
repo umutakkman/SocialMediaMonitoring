@@ -32,7 +32,7 @@ A project web application for analyzing sentiment trends from Mastodon social me
 
 ### Environment Variables
 
-To run the project, you need to implement these variables in the [config.py](pythonapi/config.py)
+To run the project, you need to implement these variables in the [config.py](PythonApi/config.py)
 
 `OPENAI_API_KEY`
 
