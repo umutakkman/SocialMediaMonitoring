@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  webapp:
+    build:
+      context: ./SocialMediaMonitoring
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - pythonapi
+    environment:
+      - PYTHONAPI_URL=http://pythonapi:5002
+    volumes:
+      - ./SocialMediaMonitoring/wwwroot:/app/wwwroot
+  
+  pythonapi:
+    build:
+      context: ./PythonApi
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"

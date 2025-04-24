@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "Mastodon Trend Analyzer";
+}
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white text-center py-3 rounded-top">
+                    <h2 class="mb-0">Mastodon Trend Analyzer</h2>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text">#</span>
+                            <input id="keywordInput" type="text" class="form-control" placeholder="Enter hashtag to analyze...">
+                            <button id="analyzeBtn" class="btn btn-primary">Analyze</button>
+                        </div>
+                        <small class="form-text text-muted">Enter a hashtag without the # symbol to analyze Mastodon posts</small>
+                    </div>
+
+                    <!-- Additional Options -->
+                    <div class="mb-3">
+                        <div class="form-group row">
+                            <label for="maxResultsInput" class="col-sm-4 col-form-label">Number of posts to analyze:</label>
+                            <div class="col-sm-8">
+                                <select id="maxResultsInput" class="form-select">
+                                    <option value="40">40 posts (faster analysis)</option>
+                                    <option value="100" selected>100 posts (balanced)</option>
+                                    <option value="200">200 posts (thorough analysis)</option>
+                                    <option value="300">300 posts (comprehensive, slower)</option>
+                                </select>
+                                <small class="form-text text-muted">Higher values give more comprehensive results but take longer to process</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Loading indicator -->
+                    <div id="loadingIndicator" class="text-center my-5" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Analyzing Mastodon posts...</p>
+                        <p id="loadingMessage" class="text-muted small">This may take a moment, especially for larger datasets</p>
+                    </div>
+
+                    <!-- Error container -->
+                    <div id="errorContainer" class="alert alert-danger" style="display: none;"></div>
+
+                    <!-- Results container -->
+                    <div id="resultsContainer" style="display: none;">
+                        <!-- Summary section -->
+                        <div class="card mb-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Summary</h5>
+                            </div>
+                            <div class="card-body">
+                                <p id="summaryText" class="lead"></p>
+                            </div>
+                        </div>
+
+                        <!-- Sentiment Analysis section -->
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Sentiment Analysis</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <canvas id="sentimentChart" height="300"></canvas>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="sentiment-metrics mt-4">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="sentiment-indicator positive"></div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-0">Positive</h6>
+                                                </div>
+                                                <div>
+                                                    <h5 id="positivePercentage" class="mb-0">0%</h5>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="sentiment-indicator neutral"></div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-0">Neutral</h6>
+                                                </div>
+                                                <div>
+                                                    <h5 id="neutralPercentage" class="mb-0">0%</h5>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <div class="sentiment-indicator negative"></div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-0">Negative</h6>
+                                                </div>
+                                                <div>
+                                                    <h5 id="negativePercentage" class="mb-0">0%</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sentiment Over Time section -->
+                        <div class="card mt-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Sentiment Over Time</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="sentimentTimeContainer">
+                                    <canvas id="sentimentTimeChart" height="300"></canvas>
+                                </div>
+                                <div id="noTimeDataMessage" class="text-muted text-center mt-3" style="display: none;">
+                                    Not enough time-based data available for analysis.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Related Keywords section -->
+                        <div class="card mt-4">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Related Keywords</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="relatedKeywordsContainer" class="d-flex flex-wrap gap-2">
+                                    <!-- Keywords will be inserted here by JavaScript -->
+                                </div>
+                                <p id="noKeywordsMessage" class="text-muted" style="display: none;">No related keywords found.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted text-center">
+                    <small>Data sourced from Mastodon.social</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sentiment-indicator {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        margin-right: 10px;
+    }
+
+        .sentiment-indicator.positive {
+            background-color: #4CAF50;
+        }
+
+        .sentiment-indicator.neutral {
+            background-color: #2196F3;
+        }
+
+        .sentiment-indicator.negative {
+            background-color: #F44336;
+        }
+</style>
