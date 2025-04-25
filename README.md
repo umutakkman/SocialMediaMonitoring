@@ -75,3 +75,7 @@ Don't forget to change [AnalysisController.cs](SocialMediaMonitoring/Controllers
 ```bash
 docker-compose up
 ```
+
+## Example of the project
+
+[SocialMediaMonitoring_example.jpg](SocialMediaMonitoring_example.jpg)
