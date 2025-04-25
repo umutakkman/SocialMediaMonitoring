@@ -2,6 +2,10 @@
 
 A project web application for analyzing sentiment trends from Mastodon social media posts with advanced data visualization.
 
+## Example of the project
+
+![Image](https://github.com/user-attachments/assets/63c0478f-7eec-47d5-9bcb-58ff7d58f781)
+
 ### Features
 
 -	Hashtag/Keyword Summary: Search for and analyze posts by hashtag or keyword
@@ -75,7 +79,3 @@ Don't forget to change [AnalysisController.cs](SocialMediaMonitoring/Controllers
 ```bash
 docker-compose up
 ```
-
-## Example of the project
-
-![Image](https://github.com/user-attachments/assets/63c0478f-7eec-47d5-9bcb-58ff7d58f781)
