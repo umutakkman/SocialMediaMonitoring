@@ -78,4 +78,4 @@ docker-compose up
 
 ## Example of the project
 
-[SocialMediaMonitoring_example.jpg](SocialMediaMonitoring_example.jpg)
+![Image](https://github.com/user-attachments/assets/63c0478f-7eec-47d5-9bcb-58ff7d58f781)
